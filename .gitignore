@@ -1,9 +1,12 @@
+<<<<<<< HEAD
 __pycache__/
 *.pyc
 .idea
 =======
 # Byte-compiled / optimized / DLL files
 __pycache__/z
+# Byte-compiled / optimized / DLL files
+>>>>>>> fb304f302a7c2432aeba371c9e3a90894ec3a5e4
 *.py[cod]
 *$py.class
 
