@@ -26,7 +26,7 @@ class Page(models.Model):
     actors = models.TextField(default='')
     url = models.URLField()
     views = models.IntegerField(default=0)
-    poster = models.ImageField(upload_to='movie_poster', blank=True)
+    poster = models.ImageField(upload_to='movie_posters', blank=True)
     description = models.TextField(default='')
 
     def __str__(self):

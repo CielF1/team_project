@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from rango.models import Category, Page
+from rango.models import Category, Page, UserProfile
 from rango.forms import UserForm, UserProfileForm, PageForm, CategoryForm
 from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
@@ -138,6 +138,24 @@ def restricted(request):
 def user_logout(request):
     logout(request)
     return redirect(reverse('rango:index'))
+
+# profile view
+@login_required
+def user_profile(request):
+    try:
+        user_profile = UserProfile.objects.get(user=request.user)
+    except:
+        user_profile = None
+    
+    # if user has not sign in, jump to login page
+    if user_profile is None:
+        return redirect(reverse('rango:user_login'))
+
+    username = user_profile.user.username
+    picture = user_profile.picture
+
+    return render(request, 'rango/profile.html', context={'username': username, 
+                                                   'picture': picture})
 
 
 def get_server_side_cookie(request, cookie, default_val=None):

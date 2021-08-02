@@ -1,0 +1,19 @@
+{% extends 'rango/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+    User profile
+{% endblock %}
+
+{% block body_block %}
+<h1>User's profile</h1>
+<div>
+    here is the user's profile page. <br />
+</div>
+Username: <strong>{{ username }}</strong><br/>
+{% if picture %}
+    <img src="{{ MEDIA_URL }}{{ picture }}" alt="Picture of User" />
+{% else %}
+    <img src="{{ MEDIA_URL }}default_user_picture.jpg" alt="Default Picture of User" />
+{% endif %}
+{% endblock %}
