@@ -22,8 +22,12 @@ class Category(models.Model):
 class Page(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     title = models.CharField(max_length=128)
+    director = models.CharField(max_length=32, default='')
+    actors = models.TextField(default='')
     url = models.URLField()
     views = models.IntegerField(default=0)
+    poster = models.ImageField(upload_to='movie_poster', blank=True)
+    description = models.TextField(default='')
 
     def __str__(self):
         return self.title
