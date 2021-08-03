@@ -1,0 +1,20 @@
+{% extends 'rango/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+    Movie Page
+{% endblock %}
+
+{% block body_block %}
+    {% if movie %}
+        <ul>
+            <li>Poster: <img src="{{ MEDIA_URL }}{{ movie.poster }}" alt="Picture of Poster" /></a></li>
+            <li>Title: {{ movie.title }}</a></li>
+            <li>Director: {{ movie.director }}</a></li>
+            <li>Main actors: {{ movie.actors }}</a></li>
+            <li>Story line: {{ movie.description }}</a></li>
+        </ul>
+    {% else %}
+        The movie you choose does not exist.
+    {% endif %}
+{% endblock %}

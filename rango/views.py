@@ -157,6 +157,19 @@ def user_profile(request):
     return render(request, 'rango/profile.html', context={'username': username, 
                                                    'picture': picture})
 
+# movie page view
+@login_required
+def show_page(request, movie_id):
+    context_dict = {}
+
+    try:
+        movie = Page.objects.get(id=movie_id)
+
+        context_dict['movie'] = movie
+    except Category.DoesNotExist:
+        context_dict['movie'] = None
+
+    return render(request, 'rango/movie.html', context=context_dict)
 
 def get_server_side_cookie(request, cookie, default_val=None):
     val = request.session.get(cookie)

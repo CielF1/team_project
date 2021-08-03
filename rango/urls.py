@@ -14,4 +14,5 @@ urlpatterns = [
     path('restricted/', views.restricted, name='restricted'),
     path('logout/', views.user_logout, name='logout'),
     path('profile/', views.user_profile, name='profile'),
+    path('movie/<int:movie_id>', views.show_page, name='show_page'),
 ]
