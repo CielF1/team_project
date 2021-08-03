@@ -14,8 +14,12 @@
         <h1>{{ category.name }}</h1>
         {% if pages %}
             <ul>
-                {% for page in pages %}
-                    <li><a href="{{ page.url }}">{{ page.title }}</a></li>
+                {% for movie in pages %}
+                    <img src="{{ MEDIA_URL }}{{ movie.poster }}" alt="Picture of Poster" /></a></li>
+                    <li><a href="{% url 'rango:show_page' movie.id %}">{{ movie.title }}</a></li>
+                    <li>{{ movie.director }}</a></li>
+                    <li>{{ movie.actors }}</a></li>
+                    <li>{{ movie.description }}</a></li><br/>
                 {% endfor %}
             </ul>
         {% else %}
