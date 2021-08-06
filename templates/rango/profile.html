@@ -6,13 +6,15 @@
 {% endblock %}
 
 {% block body_block %}
-<h1>User's profile</h1>
+<h1>User profile</h1>
 <div>
     here is the user's profile page. <br />
 </div>
 Username: <strong>{{ username }}</strong><br/>
+<!-- if user has uploaded the picture when registering -->
 {% if picture %}
     <img src="{{ MEDIA_URL }}{{ picture }}" alt="Picture of User" />
+<!-- if user does not uploaded the picture when registering, then show a default picture -->
 {% else %}
     <img src="{{ MEDIA_URL }}profile_images/default_user_picture.jpg" alt="Default Picture of User" />
 {% endif %}

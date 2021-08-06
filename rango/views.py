@@ -10,7 +10,7 @@ from django.core.paginator import Paginator, PageNotAnInteger, InvalidPage, Empt
 
 def index(request):
     category_list = Category.objects.order_by('-likes')[:3]
-    movie_list = Page.objects.order_by('-views')[:3]
+    movie_list = Page.objects.order_by('-views')[:5]
 
     context_dict = {}
     context_dict['categories'] = category_list
@@ -38,10 +38,13 @@ def show_category(request, category_name_slug):
         paginator = Paginator(context_dict['pages'], 3)
 
         page = request.GET.get('page')
+        # using paginator
         try:
             topics = paginator.page(page)
+        # if the page parameter from url is not int
         except PageNotAnInteger:
             topics = paginator.page(1)
+        # if the url does not include page request
         except EmptyPage:
             topics = paginator.page(paginator.num_pages)
         context_dict['topics'] = topics
@@ -51,6 +54,7 @@ def show_category(request, category_name_slug):
 
     return render(request, 'rango/category.html', context=context_dict)
 
+# using paginator to paging the movies
 def process_paginator(request, movie_list):
     paginator = Paginator(movie_list, 1)
     try:
@@ -160,6 +164,7 @@ def user_logout(request):
 # profile view
 @login_required
 def user_profile(request):
+    # if the user does not exist in the database, it will not let teh user access this page
     try:
         user_profile = UserProfile.objects.get(user=request.user)
     except:
@@ -167,23 +172,24 @@ def user_profile(request):
 
     # if user has not sign in, jump to login page
     if user_profile is None:
-        return redirect(reverse('rango:user_login'))
+        return redirect(reverse('rango:login'))
 
     username = user_profile.user.username
     picture = user_profile.picture
-
+    # let the user access this page with username and picture of user
     return render(request, 'rango/profile.html', context={'username': username,
                                                    'picture': picture})
 
 # movie page view
 def show_page(request, movie_id):
     context_dict = {}
-
+    # get data of movie from database
     try:
         movie = Page.objects.get(id=movie_id)
 
         context_dict['movie'] = movie
         print(context_dict)
+    # if this movie does not exist, let the html deal with it
     except Category.DoesNotExist:
         context_dict['movie'] = None
 
