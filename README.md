@@ -27,4 +27,21 @@ rango==0.0.2a0
 six==1.16.0
 Unidecode==1.2.0
 ## The screenshot of finished web
+main page
 !['main page'](/media/screenshot/main%20page.jpg)
+login
+!['login'](/media/screenshot/login.jpg)
+register
+!['register'](/media/screenshot/register.jpg)
+detail of movie
+!['detail of movie'](/media/screenshot/detail%20of%20movie.jpg)
+category of movies
+!['category of movies'](/media/screenshot/category%20of%20movies.jpg)
+already login page1
+!['already login page1](/media/screenshot/Already%20login%20page1.jpg)
+already login page2
+!['already login page1](/media/screenshot/Already%20login%20page2.jpg)
+add movie information page
+!['add movie information page](/media/screenshot/add%20a%20movie%20page.jpg)
+add movie category page
+!['add movie category page'](/media/screenshot/add%20a%20movie%20category.jpg)
