@@ -15,7 +15,7 @@ Rango says: <strong>register here!</strong><br />
 
 
 <!--register-->
-<form class="layui-form" id="user_form" method="post" action="{% url 'rango:register' %}">
+<form class="layui-form" id="user_form" method="post" enctype="multipart/form-data" action="{% url 'rango:register' %}">
     {% csrf_token %}
     <div class="layui-form-item" style="padding-top: 2%;">
         <label class="layui-form-label">Username: </label>
@@ -52,7 +52,6 @@ Rango says: <strong>register here!</strong><br />
           <button class="layui-btn" lay-submit lay-filter="formDemo">Submit</button>
         </div>
     </div>
-
 </form>
 {% endif %}
 {% endblock %}
