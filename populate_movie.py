@@ -46,7 +46,6 @@ def populate():
          'poster': "movie_posters/Schindler's_List.jpg",
          'description': "In German-occupied Poland during World War II, industrialist Oskar Schindler gradually becomes concerned for his Jewish workforce after witnessing their persecution by the Nazis."},
     ]
-
     comedy_movies = [
         {'title': 'Deadpool',
          'director': 'Tim Miller',
@@ -97,7 +96,7 @@ def populate():
          'actors': 'Andrew Garfield, Sam Worthington, Luke Bracey, Teresa Palmer, Hugo Weaving',
          'url': 'https://www.imdb.com/title/tt2119532/?ref_=fn_al_tt_1/',
          'views': 60,
-         'poster': 'movie_posters/Hacksaw_Ridge.png',
+         'poster': 'movie_posters/Hacksaw_Ridge.jpg',
          'description': "World War II American Army Medic Desmond T. Doss, who served during the Battle of Okinawa, refuses to kill people and becomes the first man in American history to receive the Medal of Honor without firing a shot."},
         {'title': "Billy Lynn's Long Halftime Walk",
          'director': 'Ang Lee',
@@ -158,7 +157,7 @@ def populate():
          'poster': 'movie_posters/IUnder_the_skin.png',
          'description': "A mysterious young woman seduces lonely men in the evening hours in Scotland. However, events lead her to begin a process of self-discovery."},
     ]
-     crime_movies = [
+    crime_movies = [
         {'title': 'Fast & Furious 9',
          'director': 'Justin Lin',
          'actors': 'Vin Diesel, Michelle Rodriguez, Jordana Brewster, Tyrese Gibson, Ludacris',
@@ -237,8 +236,8 @@ def populate():
             'Comedy': {'movies': comedy_movies, 'views': 64, 'likes': 32},
             'War': {'movies': war_movies, 'views': 32, 'likes': 16},
             'Science fiction': {'movies': sci_fi_movies, 'views': 76, 'likes': 54},
-            'crime': {'movies': crime_movies, 'views': 88, 'likes': 50},
-            'fantasy': {'movies': fantasy_movies, 'views': 96, 'likes': 74}}
+            'Crime': {'movies': crime_movies, 'views': 88, 'likes': 50},
+            'Fantasy': {'movies': fantasy_movies, 'views': 96, 'likes': 74}}
 
     for cat, cat_data in cats.items():
         c = add_cat(cat,views=cat_data['views'], likes=cat_data['likes'])

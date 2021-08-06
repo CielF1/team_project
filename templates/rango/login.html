@@ -6,13 +6,27 @@
 {% endblock %}
 
 {% block body_block %}
-<h1>Login to Rango</h1>
-<form id="login_form" method="post" action="{% url 'rango:login' %}">
+<!--login page-->
+<form class="layui-form" id="login_form" method="post" action="{% url 'rango:login' %}">
+    <h1 style="padding-top: 2%;">Login to Rango</h1>
     {% csrf_token %}
-    Username: <input type="text" name="username" value="" size="50" />
-    <br />
-    Password: <input type="password" name="password" value="" size="50" />
-    <br />
-    <input type="submit" value="submit" />
+    <div class="layui-form-item" style="padding-top: 2%;">
+        <label class="layui-form-label">Username: </label>
+        <div class="layui-input-block">
+            <input type="text" name="username" required  lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">Password: </label>
+        <div class="layui-input-block">
+            <input type="password" name="password" required  lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+          <button class="layui-btn" lay-submit lay-filter="formDemo">Submit</button>
+        </div>
+    </div>
+
 </form>
 {% endblock %}

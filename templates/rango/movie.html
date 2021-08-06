@@ -7,13 +7,18 @@
 
 {% block body_block %}
     {% if movie %}
-        <ul>
-            <li>Poster: <img src="{{ MEDIA_URL }}{{ movie.poster }}" alt="Picture of Poster" /></a></li>
-            <li>Title: {{ movie.title }}</a></li>
-            <li>Director: {{ movie.director }}</a></li>
-            <li>Main actors: {{ movie.actors }}</a></li>
-            <li>Story line: {{ movie.description }}</a></li>
-        </ul>
+    <!--Get the move object, fetch the content, and traverse the render-->
+        <div class="layui-col-md12" style="background-color:white; padding:10px; margin-top: 10px;">
+            <div class="layui-col-md12">
+                <img src="{{ MEDIA_URL }}{{ movie.poster }}" alt="Picture of Poster"/>
+                <div class="layui-col-md11">
+                    <div class="layui-col-md12 layui-font-20"><strong>Title: </strong><a href="{% url 'rango:show_page' movie.id %}">{{ movie.title }}</a></div>
+                </div>
+            </div>
+            <div class="layui-col-md12 layui-font-14" style="margin-top:20px"><strong>Director: </strong>{{ movie.director }}</div>
+            <div class="layui-col-md12 layui-font-14" style="margin-top:20px"><strong>Actors: </strong>{{ movie.actors }}</div>
+            <div class="layui-col-md12 layui-font-14" style="margin-top:20px"><strong>Description: </strong>{{ movie.description }}</div>
+        </div>
     {% else %}
         The movie you choose does not exist.
     {% endif %}

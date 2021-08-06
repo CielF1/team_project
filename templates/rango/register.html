@@ -6,18 +6,53 @@
 {% endblock %}
 
 {% block body_block %}
-<h1>Register for Rango</h1>
+<h1 style="padding-top: 2%;">Register for Rango</h1>
 {% if registered %}
 Rango says: <strong>thank you for registering!</strong>
 <a href="{% url 'rango:index' %}">Return to the homepage.</a><br />
 {% else %}
 Rango says: <strong>register here!</strong><br />
-<form id="user_form" method="post" action="{% url 'rango:register' %}" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ user_form.as_p }}
-    {{ profile_form.as_p }}
 
-    <input type="submit" name="submit" value="Register" />
+
+<!--register-->
+<form class="layui-form" id="user_form" method="post" action="{% url 'rango:register' %}">
+    {% csrf_token %}
+    <div class="layui-form-item" style="padding-top: 2%;">
+        <label class="layui-form-label">Username: </label>
+        <div class="layui-input-block">
+            <input type="text" name="username" id="id_username" required  lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">Email address: </label>
+        <div class="layui-input-block">
+            <input type="email" name="email" placeholder="请输入邮箱" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">Password: </label>
+        <div class="layui-input-block">
+            <input type="password" name="password" id="id_password" required  lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">Website: </label>
+        <div class="layui-input-block">
+            <input type="url" name="website" maxlength="200" placeholder="请输入站点" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">Picture: </label>
+        <div class="layui-input-block">
+            <input type="file" name="picture" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+          <button class="layui-btn" lay-submit lay-filter="formDemo">Submit</button>
+        </div>
+    </div>
+
 </form>
 {% endif %}
 {% endblock %}

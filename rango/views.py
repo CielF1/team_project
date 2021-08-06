@@ -6,13 +6,13 @@ from rango.forms import UserForm, UserProfileForm, PageForm, CategoryForm
 from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
 from datetime import datetime
+from django.core.paginator import Paginator, PageNotAnInteger, InvalidPage, EmptyPage
 
 def index(request):
-    category_list = Category.objects.order_by('-likes')[:5]
-    movie_list = Page.objects.order_by('-views')[:5]
+    category_list = Category.objects.order_by('-likes')[:3]
+    movie_list = Page.objects.order_by('-views')[:3]
 
     context_dict = {}
-    # context_dict['boldmessage'] = 'Crunchy, creamy, cookie, candy, cupcake!'
     context_dict['categories'] = category_list
     context_dict['movies'] = movie_list
     visitor_cookie_handler(request)
@@ -33,14 +33,32 @@ def show_category(request, category_name_slug):
     try:
         category = Category.objects.get(slug=category_name_slug)
         pages = Page.objects.filter(category=category)
-
         context_dict['pages'] = pages
         context_dict['category'] = category
+        paginator = Paginator(context_dict['pages'], 3)
+
+        page = request.GET.get('page')
+        try:
+            topics = paginator.page(page)
+        except PageNotAnInteger:
+            topics = paginator.page(1)
+        except EmptyPage:
+            topics = paginator.page(paginator.num_pages)
+        context_dict['topics'] = topics
     except Category.DoesNotExist:
         context_dict['pages'] = None
         context_dict['category'] = None
 
     return render(request, 'rango/category.html', context=context_dict)
+
+def process_paginator(request, movie_list):
+    paginator = Paginator(movie_list, 1)
+    try:
+        page_number = int(request.GET.get('page', '1'))
+        page = paginator.page(page_number)
+    except (PageNotAnInteger, EmptyPage, InvalidPage):
+        page = paginator.page(1)
+    return page
 
 @login_required
 def add_category(request):
@@ -146,7 +164,7 @@ def user_profile(request):
         user_profile = UserProfile.objects.get(user=request.user)
     except:
         user_profile = None
-    
+
     # if user has not sign in, jump to login page
     if user_profile is None:
         return redirect(reverse('rango:user_login'))
@@ -154,7 +172,7 @@ def user_profile(request):
     username = user_profile.user.username
     picture = user_profile.picture
 
-    return render(request, 'rango/profile.html', context={'username': username, 
+    return render(request, 'rango/profile.html', context={'username': username,
                                                    'picture': picture})
 
 # movie page view
@@ -165,6 +183,7 @@ def show_page(request, movie_id):
         movie = Page.objects.get(id=movie_id)
 
         context_dict['movie'] = movie
+        print(context_dict)
     except Category.DoesNotExist:
         context_dict['movie'] = None
 
