@@ -15,4 +15,6 @@ urlpatterns = [
     path('logout/', views.user_logout, name='logout'),
     path('profile/', views.user_profile, name='profile'),
     path('movie/<int:movie_id>', views.show_page, name='show_page'),
+    path('update_pic/', views.update_picture, name="update_pic"),
+
 ]

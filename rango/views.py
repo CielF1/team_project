@@ -7,6 +7,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
 from datetime import datetime
 from django.core.paginator import Paginator, PageNotAnInteger, InvalidPage, EmptyPage
+import django_team_project.settings as settings
+import os
 
 def index(request):
     category_list = Category.objects.order_by('-likes')[:3]
@@ -161,6 +163,40 @@ def user_logout(request):
     logout(request)
     return redirect(reverse('rango:index'))
 
+@login_required
+def update_picture(request):
+    message = 'Please try again!'
+    if request.method == 'POST':
+        # get the file from request
+        pic_file = request.FILES.get('pic_file')
+        user_profile = UserProfile.objects.get(user=request.user)
+        # get the new url for the picture
+        # it could be having no picture or having picture already
+        try:
+            pic_path = user_profile.picture.url.split('/')
+            current_pic_path = pic_path[-2:]
+            current_pic_path[-1] = request.POST.get('pic_name')
+        except:
+            current_pic_path = []
+            current_pic_path.append('profile_images')
+            current_pic_path.append(request.POST.get('pic_name'))
+        # print(current_pic_path)
+        # new path
+        new_pic_path = '/'.join(current_pic_path)
+        new_pic_url = settings.MEDIA_DIR + '/' + new_pic_path
+        # print(new_pic_path)
+        # write the file
+        if pic_file:
+            # pic_path = os.path.join(os.path.join(MEDIA_DIR, 'profile_images'), pic_file)
+            with open(new_pic_url, 'wb') as f:
+                for chunk in pic_file.chunks():
+                    f.write(chunk)
+        # save the file
+        user_profile.picture = new_pic_path
+        user_profile.save()
+        message = 'Your picture has been updated successfully!'
+    return render(request, 'rango/profile.html', context={'upload_result':message})
+
 # profile view
 @login_required
 def user_profile(request):
@@ -175,10 +211,11 @@ def user_profile(request):
         return redirect(reverse('rango:login'))
 
     username = user_profile.user.username
+    email = user_profile.user.email
     picture = user_profile.picture
     # let the user access this page with username and picture of user
     return render(request, 'rango/profile.html', context={'username': username,
-                                                   'picture': picture})
+                                                   'picture': picture,'email':email})
 
 # movie page view
 def show_page(request, movie_id):
