@@ -10,6 +10,8 @@ class Category(models.Model):
     slug = models.SlugField(unique=False)
 
     def save(self, *args, **kwargs):
+        if self.views < 0:
+            self.views = 0
         self.slug = slugify(self.name)
         super(Category, self).save(*args, **kwargs)
 
@@ -28,6 +30,12 @@ class Page(models.Model):
     views = models.IntegerField(default=0)
     poster = models.ImageField(upload_to='movie_posters', blank=True)
     description = models.TextField(default='')
+
+    def test(self):
+        if self.title is None:
+            self.title = 'Title missing!'
+        if self.url is None:
+            self.url = 'localhost:8000'
 
     def __str__(self):
         return self.title
